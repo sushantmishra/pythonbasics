@@ -1,0 +1,461 @@
+PYTHON ESSENTIALS : 
+*********************************************************************************************************************************************
+Language Introduction -->
+************************************************
+-- Python is a dynamic, interpreted (bytecode-compiled) language. There are no type declarations of variables, parameters, functions, or methods in source code. This makes the code short and flexible, and you lose the compile-time type checking of the source code
+-- Like C++ and Java, Python is case sensitive so "a" and "A" are different variables. 
+-- The end of a line marks the end of a statement, so unlike C++ and Java, Python does not require a semicolon at the end of each statement. 
+-- Comments begin with a '#' and extend to the end of the line.
+
+************************************************
+Python source code -->
+************************************************
+-- Python source files use the ".py" extension and are called "modules."
+-- To run the python script type "python hello.py Sushant"
+	the 3rd parameter is the command line argument to the program
+************************************************
+Basic program -->
+************************************************
+#!/usr/bin/env python
+
+# import modules used here -- sys is a very standard one
+import sys
+
+# Gather our code in a main() function
+def main():
+    print 'Hello there', sys.argv[1]
+    # Command line args are in sys.argv[1], sys.argv[2] ...
+    # sys.argv[0] is the script name itself and can be ignored
+
+# Standard boilerplate to call the main() function to begin
+# the program.
+if __name__ == '__main__':
+    main()
+
+Executing the program from command line :
+$ python hello.py Sushant
+Hello there Sushant
+$ ./hello.py Sushant  ## without needing 'python' first (Unix)
+Hello there Sushant
+
+Code explanation :
+-- A Python module can be run directly — as above "python hello.py Bob" — or it can be imported and used by some other module.
+-- When a Python file is run directly, the special variable "__name__" is set to "__main__". Therefore, it's common to have the boilerplate if __name__ ==... shown above to call a main() function when the module is run directly, but not when the module is imported by some other module.
+-- In a standard Python program, the list sys.argv contains the command-line arguments in the standard way with sys.argv[0] being the program itself, sys.argv[1] the first argument, and so on.
+
+************************************************
+User-defined Functions -->
+************************************************
+Functions in Python are defined like this:
+
+# Defines a "repeat" function that takes 2 arguments.
+def repeat(s, exclaim):
+    """
+    Returns the string 's' repeated 3 times.
+    If exclaim is true, add exclamation marks.
+    """
+
+    result = s + s + s # can also use "s * 3" which is faster (Why?)
+    if exclaim:
+        result = result + '!!!'
+    return result
+	
+Executing the code:
+Here is code that calls the above repeat() function, printing what it returns:
+def main():
+    print repeat('Yay', False)      ## YayYayYay
+    print repeat('Woo Hoo', True)   ## Woo HooWoo HooWoo Hoo!!!
+	
+Code explanation :
+-- 2 different ways to repeat strings, using the + operator which is more user-friendly, but * also works because it's Python's "repeat" operator, meaning that '-' * 10 gives '----------'
+-- * works faster than +, the reason being that * calculates the size of the resulting object once whereas with +, that calculation is made each time + is called
+-- Both + and * are called "overloaded" operators because they mean different things for numbers vs. for strings (and other data types)
+-- The def keyword defines the function with its parameters within parentheses and its code indented
+
+************************************************
+Indentation -->
+************************************************
+-- Avoid using TABs as they greatly complicate the indentation scheme 
+-- According to the official Python style guide (PEP 8), you should indent with 4 spaces.
+
+************************************************
+Code Checked at Runtime -->
+************************************************
+-- Python does very little checking at compile time, deferring almost all type, name, etc. checks on each line until that line runs.
+Example :
+def main():
+    if name == 'Guido':
+        print repeeeet(name) + '!!!'
+    else:
+        print repeat(name)
+		
+The above code compiles and runs fine so long as the name at runtime is not 'Guido'.
+
+************************************************
+Variable Names -->
+************************************************
+-- python prefers underscored_parts for variable names made up of more than one word.
+
+************************************************
+Modules and their Namespaces -->
+************************************************
+-- Various Python modules can name their functions and variables whatever they want, and the variable names won't conflict — module1.foo is different from module2.foo
+
+-- In the Python vocabulary, we'd say that module1, and module2 each have their own "namespaces," which are variable name-to-object bindings.
+
+Example :
+1)
+import sys
+
+  # Now can refer to sys.xxx facilities
+  sys.exit(0)
+  
+-- With the statement "import sys" we can then access the definitions in the sys module and make them available by their fully-qualified name, e.g. sys.exit()
+
+2)
+from sys import argv, exit
+
+-- This makes argv and exit() available by their short names.
+
+************************************************
+Commonly used modules/packages include -->
+************************************************
+sys — access to exit(), argv, stdin, stdout, ...
+re — regular expressions
+os — operating system interface, file system 
+
+************************************************
+Python String -->
+************************************************
+-- Python has a built-in string class named "str"
+-- String literals can be enclosed by either double or single quotes, although single quotes are more commonly used
+-- A double quoted string literal can contain single quotes without any fuss (e.g. "I didn't do it") and likewise single quoted string can contain double quotes
+-- A string literal can span multiple lines, but there must be a backslash \ at the end of each line to escape the newline
+-- String literals inside triple quotes, ' """ ' or " ''' ", can span multiple lines of text.
+-- Python strings are "immutable" which means they cannot be changed after they are created
+-- Characters in a string can be accessed using the standard [ ] syntax
+-- Python uses zero-based indexing, so if s is 'hello' s[1] is 'e'. If the index is out of bounds for the string, Python raises an error.
+-- The handy "slice" syntax (below) also works to extract any substring from a string
+-- The len(string) function returns the length of a string.
+
+Example : 
+pi = 3.14
+##text = 'The value of pi is ' + pi      ## NO, does not work
+text = 'The value of pi is '  + str(pi)  ## yes
+-- The str() function converts values to a string form so they can be combined with other strings. See below example.
+-- For numbers, the standard operators, +, /, * work in the usual way
+-- There is no ++ operator, but +=, -=, etc. work
+--  If you want integer division, it is most correct to use 2 slashes -- e.g. 6 // 5 is 1 (previous to python 3000, a single / does int division with ints anyway, but moving forward // is the preferred way to indicate that you want int division.)
+-- The "print" operator prints out one or more python items followed by a newline (leave a trailing comma at the end of the items to inhibit the newline)
+
+Example :
+raw = r'this\t\n and that'
+  print raw     ## this\t\n and that
+-- A "raw" string literal is prefixed by an 'r' and passes all the chars through without special treatment of backslashes, so r'x\nx' evaluates to the length-4 string 'x\nx'  
+
+Example :
+multi = """It was the best of times.
+  It was the worst of times."""
+ -- Multiline using 3 " or '
+ 
+String common used methods :
+-- s.lower(), s.upper() -- returns the lowercase or uppercase version of the string
+-- s.strip() -- returns a string with whitespace removed from the start and end
+-- s.isalpha()/s.isdigit()/s.isspace()... -- tests if all the string chars are in the various character classes
+-- s.startswith('other'), s.endswith('other') -- tests if the string starts or ends with the given other string
+-- s.find('other') -- searches for the given other string (not a regular expression) within s, and returns the first index where it begins or -1 if not found
+-- s.replace('old', 'new') -- returns a string where all occurrences of 'old' have been replaced by 'new'
+-- s.split('delim') -- returns a list of substrings separated by the given delimiter. The delimiter is not a regular expression, it's just text. 'aaa,bbb,ccc'.split(',') -> ['aaa', 'bbb', 'ccc']. As a convenient special case s.split() (with no arguments) splits on all whitespace chars.
+-- s.join(list) -- opposite of split(), joins the elements in the given list together using the string as the delimiter. e.g. '---'.join(['aaa', 'bbb', 'ccc']) -> aaa---bbb---ccc
+
+String Slices : 
+The "slice" syntax is a handy way to refer to sub-parts of sequences -- typically strings and lists.
+
+Example :
+s = Hello
+s[1:4] is 'ell' -- chars starting at index 1 and extending up to but not including index 4
+s[1:] is 'ello' -- omitting either index defaults to the start or end of the string
+s[:] is 'Hello' -- omitting both always gives us a copy of the whole thing (this is the pythonic way to copy a sequence like a string or list) 
+
+String % :
+-- Python has a printf()-like facility to put together a string. The % operator takes a printf-type format string on the left (%d int, %s string, %f/%g floating point), and the matching values on the right.
+
+Example :
+# % operator
+text = "%d little pigs come out or I'll %s and %s and %s" % (3, 'huff', 'puff', 'blow down')
+
+-- The above line is kind of long -- if we want to break it into separate lines
+-- cannot just split the line after the '%' as you might in other languages, since by default Python treats each line as a separate statement
+-- To fix this, enclose the whole expression in an outer set of parenthesis -- then the expression is allowed to span multiple lines, example below.
+
+Example :
+# add parens to make the long-line work:
+text = ("%d little pigs come out or I'll %s and %s and %s" %
+(3, 'huff', 'puff', 'blow down'))
+
+i18n Strings (Unicode) :
+-- Regular Python strings are *not* unicode, they are just plain bytes. To create a unicode string, use the 'u' prefix on the string literal:
+
+Example :
+> ustring = u'A unicode \u018e string \xf1'
+> ustring
+u'A unicode \u018e string \xf1'
+
+If Statement :
+-- Python does not use { } to enclose blocks of code for if/loops/function etc.. Instead, Python uses the colon (:) and indentation/whitespace to group statements.
+-- The "zero" values all count as false: None, 0, empty string, empty list, empty dictionary
+-- There is also a Boolean type with two values: True and False (converted to an int, these are 1 and 0).
+-- Python has the usual comparison operations: ==, !=, <, <=, >, >=
+-- The boolean operators are the spelled out words *and*, *or*, *not*
+
+Example:
+if speed >= 80:
+    print 'License and registration please'
+    if mood == 'terrible' or speed >= 100:
+      print 'You have the right to remain silent.'
+    elif mood == 'bad' or speed >= 90:
+      print "I'm going to have to write you a ticket."
+      write_ticket()
+    else:
+      print "Let's try to keep it under 80 ok?"
+	  
+************************************************
+Python list -->
+************************************************
+-- List literals are written within square brackets [ ]
+--  Lists work similarly to strings -- use the len() function and square brackets [ ] to access data.
+
+Example :
+colors = ['red', 'blue', 'green']
+print colors[0]    ## red
+print colors[2]    ## green
+print len(colors)  ## 3
+
+FOR and IN :
+-- The *for* construct -- for var in list -- is an easy way to look at each element in a list (or other collection)
+-- Do not add or remove from the list during iteration.
+
+Example :
+squares = [1, 4, 9, 16]
+sum = 0
+for num in squares:
+sum += num
+print sum  ## 30
+
+-- The *in* construct on its own is an easy way to test if an element appears in a list (or other collection).
+-- tests if the value is in the collection, returning True/False.
+
+Example:
+list = ['larry', 'curly', 'moe']
+if 'curly' in list:
+print 'yay'
+
+Range :
+-- The range(n) function yields the numbers 0, 1, ... n-1, and range(a, b) returns a, a+1, ... b-1 -- up to but not including the last number.
+
+Example :
+## print the numbers from 0 through 99
+for i in range(100):
+print i
+
+While Loop :
+-- Python also has the standard while-loop, and the *break* and *continue* statements work as in C++ and Java
+
+Example :
+## Access every 3rd element in a list
+i = 0
+while i < len(a):
+	print a[i]
+	i = i + 3
+
+List Methods :
+-- list.append(elem) -- adds a single element to the end of the list. Common error: does not return the new list, just modifies the original.
+-- list.insert(index, elem) -- inserts the element at the given index, shifting elements to the right.
+-- list.extend(list2) adds the elements in list2 to the end of the list. Using + or += on a list is similar to using extend().
+-- list.index(elem) -- searches for the given element from the start of the list and returns its index. Throws a ValueError if the element does not appear (use "in" to check without a ValueError).
+-- list.remove(elem) -- searches for the first instance of the given element and removes it (throws ValueError if not present)
+-- list.sort() -- sorts the list in place (does not return it). (The sorted() function shown later is preferred.)
+-- list.reverse() -- reverses the list in place (does not return it)
+-- list.pop(index) -- removes and returns the element at the given index. Returns the rightmost element if index is omitted (roughly the opposite of append()).
+
+List Slices :
+-- Slices work on lists just as with strings, and can also be used to change sub-parts of the list.
+
+Example :
+list = ['a', 'b', 'c', 'd']
+print list[1:-1]   ## ['b', 'c']
+list[0:2] = 'z'    ## replace ['a', 'b'] with ['z']
+print list         ## ['z', 'c', 'd']
+
+************************************************
+Python Sorting -->
+************************************************
+-- The easiest way to sort is with the sorted(list) function, which takes a list and returns a new list with those elements in sorted order
+-- The original list is not changed.
+
+Example :
+a = [5, 1, 4, 3]
+print sorted(a)  ## [1, 3, 4, 5]
+print a  ## [5, 1, 4, 3]
+
+-- The sorted() function can be customized through optional arguments. The sorted() optional argument reverse=True, e.g. sorted(list, reverse=True), makes it sort backwards.
+
+Example :
+strs = ['aa', 'BB', 'zz', 'CC']
+print sorted(strs)  ## ['BB', 'CC', 'aa', 'zz'] (case sensitive)
+print sorted(strs, reverse=True)   ## ['zz', 'aa', 'CC', 'BB']
+
+Custom Sorting With key= :
+-- For more complex custom sorting, sorted() takes an optional "key=" specifying a "key" function that transforms each element before comparison.
+--  list of strings, specifying key=len (the built in len() function) sorts the strings by length, from shortest to longest
+
+Example :
+1) 
+strs = ['ccc', 'aaaa', 'd', 'bb']
+print sorted(strs, key=len)  ## ['d', 'bb', 'ccc', 'aaaa']
+
+2) 
+## "key" argument specifying str.lower function to use for sorting
+print sorted(strs, key=str.lower)  ## ['aa', 'BB', 'CC', 'zz']
+3)
+## Say we have a list of strings we want to sort by the last letter of the string.
+strs = ['xc', 'zb', 'yd' ,'wa']
+
+## Write a little function that takes a string, and returns its last letter.
+## This will be the key function (takes in 1 value, returns 1 value).
+def MyFn(s):
+return s[-1]
+
+## Now pass key=MyFn to sorted() to sort by the last letter:
+print sorted(strs, key=MyFn)  ## ['wa', 'zb', 'xc', 'yd']
+
+sort() method :
+-- As an alternative to sorted(), the sort() method on a list sorts that list into ascending order, e.g. list.sort()
+
+Example :
+alist.sort()            ## correct
+alist = blist.sort()    ## NO incorrect, sort() returns None
+
+************************************************
+Tuples -->
+************************************************
+-- A tuple is a fixed size grouping of elements, such as an (x, y) co-ordinate. 
+-- Tuples are like lists, except they are immutable and do not change size (tuples are not strictly immutable since one of the contained elements could be mutable)
+-- A function that needs to return multiple values can just return a tuple of the values
+-- The "empty" tuple is just an empty pair of parenthesis
+
+Example :
+tuple = (1, 2, 'hi')
+print len(tuple)  ## 3
+print tuple[2]    ## hi
+tuple[2] = 'bye'  ## NO, tuples cannot be changed
+tuple = (1, 2, 'bye')  ## this works
+
+-- To create a size-1 tuple, the lone element must be followed by a comma
+
+Example :
+tuple = ('hi',)   ## size-1 tuple
+
+************************************************
+List Comprehensions -->
+************************************************
+-- List comprehensions are a more advanced feature which is nice for some cases
+
+Example :
+nums = [1, 2, 3, 4]
+squares = [ n * n for n in nums ]   ## [1, 4, 9, 16]
+
+strs = ['hello', 'and', 'goodbye']
+shouting = [ s.upper() + '!!!' for s in strs ]
+## ['HELLO!!!', 'AND!!!', 'GOODBYE!!!']
+
+************************************************
+Python Dict and File -->
+************************************************
+Dict :
+-- Python's efficient key/value hash table structure is called a "dict"
+-- The contents of a dict can be written as a series of key:value pairs within braces { }, e.g. dict = {key1:value1, key2:value2, ... }. 
+-- The "empty dict" is just an empty pair of curly braces {}.
+
+Example :
+1)
+## Can build up a dict by starting with the the empty dict {}
+## and storing key/value pairs into the dict like this:
+## dict[key] = value-for-that-key
+dict = {}
+dict['a'] = 'alpha'
+dict['g'] = 'gamma'
+dict['o'] = 'omega'
+
+print dict  ## {'a': 'alpha', 'o': 'omega', 'g': 'gamma'}
+
+print dict['a']     ## Simple lookup, returns 'alpha'
+dict['a'] = 6       ## Put new key/value into dict
+'a' in dict         ## True
+## print dict['z']                  ## Throws KeyError
+if 'z' in dict: print dict['z']     ## Avoid KeyError
+print dict.get('z')  ## None (instead of KeyError)
+
+2)
+## By default, iterating over a dict iterates over its keys.
+## Note that the keys are in a random order.
+for key in dict: print key
+## prints a g o
+
+## Exactly the same as above
+for key in dict.keys(): print key
+
+## Get the .keys() list:
+print dict.keys()  ## ['a', 'o', 'g']
+
+## Likewise, there's a .values() list of values
+print dict.values()  ## ['alpha', 'omega', 'gamma']
+
+## Common case -- loop over the keys in sorted order,
+## accessing each key/value
+for key in sorted(dict.keys()):
+print key, dict[key]
+
+## .items() is the dict expressed as (key, value) tuples
+print dict.items()  ##  [('a', 'alpha'), ('o', 'omega'), ('g', 'gamma')]
+
+## This loop syntax accesses the whole dict by looping
+## over the .items() tuple list, accessing one (key, value)
+## pair on each iteration.
+for k, v in dict.items(): print k, '>', v
+## a > alpha    o > omega     g > gamma
+
+Del :
+-- The "del" operator does deletions.
+--  In the simplest case, it can remove the definition of a variable, as if that variable had not been defined.
+
+Example :
+var = 6
+del var  # var no more!
+
+list = ['a', 'b', 'c', 'd']
+del list[0]     ## Delete first element
+del list[-2:]   ## Delete last two elements
+print list      ## ['b']
+
+dict = {'a':1, 'b':2, 'c':3}
+del dict['b']   ## Delete 'b' entry
+print dict      ## {'a':1, 'c':3}
+
+************************************************
+Files -->
+************************************************
+-- The open() function opens and returns a file handle that can be used to read or write a file in the usual way.
+-- The code f = open('name', 'r') opens the file into the variable f, ready for reading operations, and use f.close() when finished.
+-- Instead of 'r', use 'w' for writing, and 'a' for append.
+-- The special mode 'rU' is the "Universal" option for text files where it's smart about converting different line-endings so they always come through as a simple '\n'
+
+Example :
+# Echo the contents of a file
+f = open('foo.txt', 'rU')
+for line in f:   ## iterates over the lines of the file
+print line,    ## trailing , so print does not add an end-of-line char
+			   ## since 'line' already includes the end-of line.
+f.close()
+
+-- For writing, f.write(string) method is the easiest way to write data to an open output file
