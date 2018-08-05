@@ -223,7 +223,7 @@ if speed >= 80:
 Python list -->
 ************************************************
 -- List literals are written within square brackets [ ]
---  Lists work similarly to strings -- use the len() function and square brackets [ ] to access data.
+-- Lists work similarly to strings -- use the len() function and square brackets [ ] to access data.
 
 Example :
 colors = ['red', 'blue', 'green']
@@ -239,8 +239,8 @@ Example :
 squares = [1, 4, 9, 16]
 sum = 0
 for num in squares:
-sum += num
-print sum  ## 30
+    sum += num
+	print sum  ## 30
 
 -- The *in* construct on its own is an easy way to test if an element appears in a list (or other collection).
 -- tests if the value is in the collection, returning True/False.
@@ -248,7 +248,7 @@ print sum  ## 30
 Example:
 list = ['larry', 'curly', 'moe']
 if 'curly' in list:
-print 'yay'
+    print 'yay'
 
 Range :
 -- The range(n) function yields the numbers 0, 1, ... n-1, and range(a, b) returns a, a+1, ... b-1 -- up to but not including the last number.
@@ -307,7 +307,7 @@ print sorted(strs, reverse=True)   ## ['zz', 'aa', 'CC', 'BB']
 
 Custom Sorting With key= :
 -- For more complex custom sorting, sorted() takes an optional "key=" specifying a "key" function that transforms each element before comparison.
---  list of strings, specifying key=len (the built in len() function) sorts the strings by length, from shortest to longest
+-- list of strings, specifying key=len (the built in len() function) sorts the strings by length, from shortest to longest
 
 Example :
 1) 
@@ -463,3 +463,92 @@ f.close()
 *********************************************************************************************************************************************
 PYTHON 3 --------------->
 ************************************************
+Scalar Types -->
+************************************************
+int:
+-- signed and unlimited precesion
+-- can also be constructed using the constructor
+Example :
+int(3.5) = 3
+int("496") = 496
+int(10000,3) = 81 # 2nd parameter in the base
+
+float:
+-- 53 bits of binary precision , 15-16 bit of decimal precesion
+-- can also be constructed using the constructor
+Example :
+int(7) = 7.0
+int("1.618") = 1.618
+float("nan") = nan # not a number
+float("inf") = inf # +/- infinity based on +/- at the starting
+
+None:
+-- Yes a capital N
+-- Often used to represent the absence of a value 
+Example :
+a = None
+a is None # output : True
+
+bool:
+-- True and False (Yes , again in capital)
+Example:
+bool(0) # False
+bool(0.0) # False
+bool(42) # True
+bool(-1) # True
+bool(0.247) # True
+
+************************************************
+Executing the 1st  program :
+************************************************
+-- In the command prompt type the below command keeping the file "first_program.py" in the path 
+python first_program.py
+
+-- Another way is to get into the python sheel by typing python in the cmd and then type the blow command
+>>> first_program # no .py extension
+
+************************************************
+Defining functions :
+************************************************
+-- def followed by the name of the function
+def square(x):
+    return x*x
+
+Example:
+# using the file defining_functions.py
+-- from the cmd type python 
+>>> import defining_functions
+>>> defining_functions.fetch_words()
+
+-- importing specific functions as below 
+>>> from defining_functions import fetch_words
+>>> fetch_words()
+
+-- But if we run the module from the cmd directly using the blow command it wont do anything
+python defining_functions.py
+
+-- So we make use of special attributes in Python delimited by double underscore
+-- one such attriute is called as __name__
+-- Evaluates to __main__ or the actal module name depending on how the enclosing module is being used. 
+
+Example: 
+# using the file print_using_name.py
+>>> import print_using_name
+print_using_name
+>>> import print_using_name # trying to import again wil not print anything
+
+-- Import is done only once so if we try to execute the import print_using_name command again it won't print the name of the import as shown above
+-- Now if we run the module as a script
+python print_using_name.py
+__main__ # we get this output
+
+-- If we want to run directly using the script then we can now using the below command 
+python print_using_main.py
+
+************************************************
+Main function and command-line arguments :
+************************************************
+# using the file fetch_and_print.py
+python
+>>>from fetch_and_print import (fetch_words,print_words)
+>>>print_words(fetch_words())
