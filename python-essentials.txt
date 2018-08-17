@@ -552,3 +552,125 @@ Main function and command-line arguments :
 python
 >>>from fetch_and_print import (fetch_words,print_words)
 >>>print_words(fetch_words())
+
+# using the file pass_commandline_arg.py
+passing command line args :
+1. Method 1
+pythonbasics>python pass_commandline_arg.py http://sixty-north.com/c/t.txt
+
+2. Method 2
+>>> from pass_commandline_arg import *
+>>> main("http://sixty-north.com/c/t.txt")
+
+************************************************
+Documenting the code :(docstring)
+************************************************
+Use """ """(triple quotes)
+Example :
+ """ Fetch a list of work from a URL."""
+ with urlopen(url) as story:
+        story_words = []
+        for line in story:
+            line_words = line.decode('utf-8').split()
+            for words in line_words:
+                story_words.append(words)
+   
+Same docstring can be accessed using help command from the repo.
+Example :
+# using the file pass_commandline_arg.py
+>>> from pass_commandline_arg import *
+>>> help(fetch_words)
+
+Output :
+Help on function fetch_words in module pass_commandline_arg:
+
+fetch_words(url)
+    Fetch a list of words from a URL.
+    Args:
+            url: The uRL of a UTF-8 document
+    Returns:
+            A list of strings contaiing the words from the document
+
+************************************************			
+Functions and Arguments :
+************************************************
+def banner(message,border='-'):
+
+the 2nd argument border hasa default value border = '-'
+
+************************************************
+Python name scopes :
+************************************************
+# using the file pass_commandline_arg.py
+Local
+Example :
+words ,line_words ,story_words ,line ,story in the above mentioned file.
+
+Enclosing
+Example :
+
+Global
+Example :
+count =0
+def show_count():
+    print("count = " ,count)
+	
+def set_count(c)
+    global count # if this is not written then the next command will create a new count variable and the global count will still remain 0
+    count = c
+
+count is global here
+
+Built-in
+Example :
+
+************************************************
+Note : Everything in Python is an Object
+************************************************
+
+************************************************
+Collections :
+************************************************
+str
+list
+dict
+
+tuple
+range
+set
+
+************************************************
+tuple :(heterogeneous immutable sequences)
+************************************************
+Example :
+>>> t = ('sushant',12345,1.2)
+>>> t[0] # output : sushant
+
+Tuple with single element :
+>>> h = (123) # not a tuple
+>>> type(h)
+<class 'int'>
+>>> i = (123,) # should be marked with a tailing ,(comma)
+>>> type(i)
+<class 'tuple'>
+
+Empty tuple :
+>>> j =()
+>>> type(j)
+<class 'tuple'>
+
+Tuple without braces :
+>>> p = 1,2,3,4,5
+>>> type(p)
+<class 'tuple'>
+
+Tuple unpacking :
+>>> (a,(b,(c,d))) = (1,(2,(3,4)))
+>>> a
+1
+>>> b
+2
+>>> c
+3
+>>> d
+4
