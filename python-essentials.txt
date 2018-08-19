@@ -674,3 +674,157 @@ Tuple unpacking :
 3
 >>> d
 4
+
+************************************************
+str
+************************************************
+str methods :
+
+colors = ";".join(["#45ff23","#45ff24","#45ff24"])>>> colors = ";".join(["#45ff23","#45ff24","#45ff24"])
+>>> colors #output : '#45ff23;#45ff24;#45ff24'
+
+>>> "unforgotable".partition("forgot")
+('un', 'forgot', 'able')
+
+>>> "the age of {0} is {1}".format("Jim",32)
+'the age of Jim is 32'
+
+************************************************
+range :(AP of integer)
+************************************************
+>>> for i in range(5):
+...     print(i)
+...
+0
+1
+2
+3
+4
+
+>>> list(range(5,10))
+[5, 6, 7, 8, 9]
+
+>>> list(range(5,20,2)) # the third argument id the step argument and in this case all the 3 argument is mandatory
+[5, 7, 9, 11, 13, 15, 17, 19]
+
+************************************************
+list :(heterogeneous mutable sequence)
+************************************************
+>>> s = "sow how to index into sequence".split()
+>>> s
+['sow', 'how', 'to', 'index', 'into', 'sequence']
+
+>>> s[1:4] # gives the elements in the range 1 to 4
+['how', 'to', 'index']
+
+>>> full_slice = s[:] # useful for copying a list
+>>> full_slice
+['sow', 'how', 'to', 'index', 'into', 'sequence']
+
+>>> u = s.copy() # copy list 
+>>> u
+['sow', 'how', 'to', 'index', 'into', 'sequence']
+
+>>> v = list(s) # copy list 
+>>> v
+['sow', 'how', 'to', 'index', 'into', 'sequence']
+
+# below example shows list are shallow copied
+>>> a = [[1,2],[3,4]]
+>>> b = a[:]
+>>> b
+[[1, 2], [3, 4]]
+>>> a is b
+False
+>>> a == b
+True
+>>> a[1].append(5) # modifies both the elements a[1] and b[1]
+>>> a[1]
+[3, 4, 5]
+>>> b[1]
+[3, 4, 5]
+
+# list repeatation
+>>> c = [21,37]
+>>> d = 3*c
+>>> d
+[21, 37, 21, 37, 21, 37]
+
+>>> w = "the quick brown fox jumped over the lazy dog".split()
+>>> w
+['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog']
+>>> i = w.index("the") # index of element
+>>> i
+0
+
+>>> c = w.count("the") # count element
+>>> c
+2
+
+>>> del w[2] # delete element
+>>> w
+['the', 'quick', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog']
+
+>>> w.remove("over") # delete element
+>>> w
+['the', 'quick', 'fox', 'jumped', 'the', 'lazy', 'dog']
+
+>>> a = "I accidantly the whole universe".split()
+>>> a
+['I', 'accidantly', 'the', 'whole', 'universe']
+>>> a.insert(2,"distroyed") # insert element
+>>> a
+['I', 'accidantly', 'distroyed', 'the', 'whole', 'universe']
+>>> ' '.join(a) # join it back as a string
+'I accidantly distroyed the whole universe'
+
+>>> m = [1,2,3]
+>>> n = [4,5,6]
+>>> k = m + n # list concat
+>>> k
+[1, 2, 3, 4, 5, 6]
+
+>>> k.extend([7,8,9]) # appends to list
+>>> k
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+>>> k.reverse() # reversing a list
+>>> k
+[9, 8, 7, 6, 5, 4, 3, 2, 1]
+
+>>> k.sort() # sort a list
+>>> k
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> k.sort(reverse=True) # reverse sort a list
+>>> k
+[9, 8, 7, 6, 5, 4, 3, 2, 1]
+
+************************************************
+dict :(unordered mapping form unique immutable keys to mutable values)
+************************************************
+>>> urls = {'google':'https://www.google.com','microsoft':'https://www.microsoft.com'}
+>>> urls['google']
+'https://www.google.com'
+
+>>> for key,value in urls.items():
+...     print("{key} => {value}".format(key=key,value=value))
+...
+google => https://www.google.com
+microsoft => https://www.microsoft.com
+
+************************************************
+set :(unordered collection of unique immutable objects)
+************************************************
+>>> p = {1,2,3,4,5}
+>>> p
+{1, 2, 3, 4, 5}
+>>> type(p)
+<class 'set'>
+
+>>> d = {}
+>>> type(d)
+<class 'dict'>
+>>> e = set()
+>>> type(e)
+<class 'set'>
+
