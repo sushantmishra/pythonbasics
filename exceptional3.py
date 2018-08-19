@@ -1,0 +1,12 @@
+def convert(s):
+    """ Convert to an int"""
+    try:
+        x = int(s)
+        print("Convertion succeeded! x=",x)
+    except ValueError:
+        print("Convertion failed in value")
+        x = -1
+    except TypeError:
+        print("Convertion failed in type")
+        x = -1		
+    return x
