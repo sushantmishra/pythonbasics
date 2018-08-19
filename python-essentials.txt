@@ -904,3 +904,125 @@ Convertion failed in value
 >>> convert([1,2,3])
 Convertion error : int() argument must be a string, a bytes-like object or a number, not 'list'
 -1
+
+************************************************
+Classes -->
+************************************************
+# creating a class in python
+# using file airtravel.py
+class Flight:
+
+# executing the class
+>>> from airtravel import Flight
+>>> Flight
+<class 'airtravel.Flight'>
+
+# creating object of class
+>>> f = Flight()
+>>> type(f)
+<class 'airtravel.Flight'>
+
+# defining an instance method 
+def number(self):
+    return "SN060"
+    
+self --> the first argument to all instance method and is equivalent to this in c++ or java
+
+# calling an instance method
+>>> from airtravel import Flight
+>>> f = Flight()
+>>> f.number() # here the argument is not required
+'SN060'
+
+# another way to call 
+>>> Flight.number(f)
+'SN060'
+
+# __init__() instance method for initializing new object
+__init__() is an initializer, not a constructor
+
+# using the __init__ method
+def __init__(self)
+    self._number = number
+    
+why _number ? --> by convention , implementation details start with underscore
+
+>>> from airtravel import Flight
+>>> f = Flight("SN060")
+>>> f.number()
+'SN060'
+
+# creating the aircraft class and using it
+>>> from airtravel import *
+>>> a = Aircraft("G-EUPT","Airbus A319",22,6)
+>>> a.registration()
+'G-EUPT'
+>>> a.model()
+'Airbus A319'
+>>> a.seating_plan()
+(range(1, 23), 'ABCDEF')
+ 
+# fetch one class properties from another
+>>> from airtravel import *
+>>> f = Flight("BA758",Aircraft("G-EUPT","Airbus A319",22,6))
+>>> f.aircraft_model()
+'Airbus A319'
+
+************************************************
+File Handling  -->
+************************************************
+# open a file 
+open()
+parameters:
+file --> path to file
+mode --> read/write/append , binary/text
+encoding --> text encoding
+# opening and writing to a file 
+Example:
+>>> f = open("test_file_read_write.txt",mode="wt",encoding="UTF-8")
+>>> f.write("Sushant Mishra\n")
+15
+>>> f.write("Python Basics\n")
+14
+>>> f.close()
+
+# opening and reading a file
+>>> f = open("test_file_read_write.txt",mode="rt",encoding="UTF-8")
+>>> f.read(32) # read till the char 32
+'Sushant Mishra\nPython Basics\n'
+>>> f.read(15)
+''
+>>> f.read(14)
+''
+>>> f.seek(0) # move the pointer to the start of the file
+0
+>>> f.readline() # read file line by line
+'Sushant Mishra\n'
+>>> f.readline()
+'Python Basics\n'
+>>> f.seek(0)
+0
+>>> f.readlines() ## read file line by line and put it into a list
+['Sushant Mishra\n', 'Python Basics\n']
+>>> f.close()
+
+# opening and appending to an existing file
+>>> h = open("test_file_read_write.txt",mode="at",encoding="UTF-8")
+>>> h.writelines(['Bangalore\n','India'])
+>>> h.close()
+
+# read line by line using for loop
+# using file files.py
+
+pythonbasics>python files.py "test_file_read_write.txt"
+Sushant Mishra
+Python Basics
+Bangalore
+India
+
+# resource manager using with-block
+# with block removes the use of closing the file explicitly
+# using file files2.py
+pythonbasics>python files2.py "test_file_read_write.txt"
+['Sushant Mishra', 'Python Basics', 'Bangalore', 'India']
+
